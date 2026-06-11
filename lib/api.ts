@@ -144,8 +144,27 @@ export type IgLinkStatus = {
 
 export type AdminUserRow = User & {
   id: string;
+  bot_username?: string | null;
   last_login_at?: string | null;
   item_count: number;
+};
+
+export type BotRow = {
+  id: string;
+  username: string;
+  status: "ACTIVE" | "CHALLENGE" | "DISABLED";
+  note?: string | null;
+  last_poll_at?: string | null;
+  last_error?: string | null;
+  created_at: string;
+  assigned_users: number;
+};
+
+export type NextPoll = {
+  status: string;
+  last_run_at?: string | null;
+  next_poll_at?: string | null;
+  interval_s: number;
 };
 
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {

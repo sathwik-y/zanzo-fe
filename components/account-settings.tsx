@@ -11,6 +11,8 @@ export function AccountSettings() {
   const [igUsername, setIgUsername] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [checking, setChecking] = useState(false);
+  const [checkNote, setCheckNote] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     try {
@@ -24,12 +26,29 @@ export function AccountSettings() {
     load();
   }, [load]);
 
-  // While a code is pending, poll for the poller-side verification.
+  // Light background refresh while a code is pending (the poller may catch it
+  // on its own sweep); the primary path is the "check now" button.
   useEffect(() => {
     if (!link?.pending_code) return;
-    const t = setInterval(load, 10000);
+    const t = setInterval(load, 30000);
     return () => clearInterval(t);
   }, [link?.pending_code, load]);
+
+  async function checkNow() {
+    setChecking(true);
+    setCheckNote(null);
+    try {
+      const status = await api<IgLinkStatus>("auth/instagram/verify-now", { method: "POST" });
+      setLink(status);
+      if (!status.ig_verified) {
+        setCheckNote("Not seeing it yet — Instagram can take a few seconds to deliver. Try again in a moment.");
+      }
+    } catch {
+      setCheckNote("Couldn't reach Instagram right now. Your code stays valid — try again shortly.");
+    } finally {
+      setChecking(false);
+    }
+  }
 
   async function startLink(e: React.FormEvent) {
     e.preventDefault();
@@ -99,11 +118,21 @@ export function AccountSettings() {
           <p className="mt-3 select-all rounded-lg bg-zinc-950/60 px-3 py-2 font-mono text-base tracking-widest text-copper-100">
             ZANZO {link.pending_code}
           </p>
-          <p className="mt-3 flex items-center gap-2 text-xs text-copper-300/70">
-            <Loader2 className="size-3 animate-spin" /> Waiting for your DM — checked every poll
-            cycle. Code expires{" "}
-            {link.code_expires_at ? new Date(link.code_expires_at).toLocaleTimeString() : "soon"}.
-          </p>
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <button
+              onClick={checkNow}
+              disabled={checking}
+              className="flex items-center gap-2 rounded-full bg-copper-500/90 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-copper-500 disabled:opacity-50"
+            >
+              {checking ? <Loader2 className="size-4 animate-spin" /> : <CheckCircle2 className="size-4" />}
+              {checking ? "Checking your DMs…" : "I've sent it — check now"}
+            </button>
+            <span className="text-xs text-copper-300/70">
+              Code expires{" "}
+              {link.code_expires_at ? new Date(link.code_expires_at).toLocaleTimeString() : "soon"}.
+            </span>
+          </div>
+          {checkNote && <p className="mt-2 text-xs text-ochre-300/90">{checkNote}</p>}
         </div>
       ) : (
         <form onSubmit={startLink} className="mt-4 flex flex-wrap items-end gap-3">

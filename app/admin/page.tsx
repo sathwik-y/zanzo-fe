@@ -11,6 +11,7 @@ import {
   Users,
 } from "lucide-react";
 import { AdminUserRow, api, PollerStatus, Stats } from "@/lib/api";
+import { BotAccounts } from "@/components/bot-accounts";
 import { EngagementSettings } from "@/components/engagement-settings";
 import { useUser } from "@/lib/use-user";
 
@@ -101,6 +102,7 @@ export default function AdminPage() {
                 <th className="py-2 pr-4 font-medium">Email</th>
                 <th className="py-2 pr-4 font-medium">Role</th>
                 <th className="py-2 pr-4 font-medium">Instagram</th>
+                <th className="py-2 pr-4 font-medium">Bot</th>
                 <th className="py-2 pr-4 font-medium">Items</th>
                 <th className="py-2 pr-4 font-medium">Joined</th>
                 <th className="py-2 font-medium">Last login</th>
@@ -136,6 +138,13 @@ export default function AdminPage() {
                       <span className="text-zinc-600">—</span>
                     )}
                   </td>
+                  <td className="py-2.5 pr-4">
+                    {u.bot_username ? (
+                      <span className="font-mono text-xs text-zinc-400">@{u.bot_username}</span>
+                    ) : (
+                      <span className="text-zinc-600">env</span>
+                    )}
+                  </td>
                   <td className="py-2.5 pr-4">{u.item_count}</td>
                   <td className="py-2.5 pr-4 text-zinc-500">
                     {new Date(u.created_at).toLocaleDateString()}
@@ -147,7 +156,7 @@ export default function AdminPage() {
               ))}
               {users.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="py-4 text-center text-zinc-600">
+                  <td colSpan={7} className="py-4 text-center text-zinc-600">
                     no users yet
                   </td>
                 </tr>
@@ -204,6 +213,8 @@ export default function AdminPage() {
           <p className="mt-3 text-xs text-clay-300/80">last error: {poller.last_error}</p>
         )}
       </section>
+
+      <BotAccounts />
 
       <EngagementSettings />
     </div>

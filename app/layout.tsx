@@ -12,7 +12,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Zanzo — your saves, remembered",
+  title: "Zanzo",
   description:
     "Zanzo turns the reels you save or DM into a searchable, structured archive: transcribed, categorized, and extracted into data you can act on.",
 };
