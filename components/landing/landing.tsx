@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import Link from "next/link";
 import { motion } from "motion/react";
 import {
   ArrowUpRight,
@@ -12,7 +12,6 @@ import {
   Server,
   Users,
 } from "lucide-react";
-import { AuthCard } from "@/components/auth-card";
 import { GitHubIcon } from "@/components/icons";
 import { Logo } from "@/components/logo";
 import { DmDemo } from "@/components/landing/dm-demo";
@@ -22,10 +21,10 @@ const BACKEND_REPO = "https://github.com/sathwik-y/zanzo";
 const FRONTEND_REPO = "https://github.com/sathwik-y/zanzo-fe";
 
 const fadeUp = {
-  initial: { opacity: 0, y: 24 },
+  initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-80px" },
-  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+  viewport: { once: true, margin: "-60px" },
+  transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const },
 };
 
 export function Landing() {
@@ -43,12 +42,12 @@ export function Landing() {
               "radial-gradient(55% 45% at 75% 10%, rgba(192,118,58,0.10) 0%, transparent 65%), radial-gradient(45% 40% at 10% 90%, rgba(192,118,58,0.06) 0%, transparent 70%)",
           }}
         />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-6 pb-20 pt-36 lg:grid-cols-[1.15fr_1fr] lg:pb-28">
+        <div className="relative mx-auto grid min-h-svh max-w-6xl items-center gap-14 px-6 pb-16 pt-28 lg:grid-cols-[1.2fr_1fr]">
           <div>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.35 }}
               className="font-mono text-[0.7rem] uppercase tracking-[0.28em] text-copper-400"
             >
               Self-hosted Instagram archive
@@ -59,27 +58,27 @@ export function Landing() {
                 <motion.span
                   key={w + i}
                   className="inline-block"
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.08 * i, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ delay: 0.05 * i, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                 >
                   {w}&nbsp;
                 </motion.span>
               ))}
               <motion.em
                 className="inline-block text-copper-300"
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.24, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ delay: 0.15, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               >
                 lost it.
               </motion.em>
             </h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
+              transition={{ delay: 0.22, duration: 0.4 }}
               className="mt-6 max-w-lg text-base leading-relaxed text-ink-dim"
             >
               Zanzo watches the reels you save or DM and turns each one into structured,
@@ -88,17 +87,17 @@ export function Landing() {
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.52, duration: 0.6 }}
+              transition={{ delay: 0.3, duration: 0.4 }}
               className="mt-9 flex flex-wrap items-center gap-4"
             >
-              <a
-                href="#auth"
+              <Link
+                href="/login"
                 className="rounded-full bg-transparent px-10 py-3.5 text-sm font-bold uppercase tracking-widest text-ink shadow-[inset_0_0_0_2px_var(--color-line-strong)] transition duration-200 hover:bg-ink hover:text-paper hover:shadow-[inset_0_0_0_2px_var(--color-ink)]"
               >
                 Get started
-              </a>
+              </Link>
               <a
                 href={BACKEND_REPO}
                 target="_blank"
@@ -114,24 +113,21 @@ export function Landing() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.7, duration: 0.8 }}
+              transition={{ delay: 0.45, duration: 0.5 }}
               className="mt-10 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-ink-faint"
             >
               FastAPI · Postgres + pgvector · Gemini · Whisper / Deepgram · Next.js
             </motion.p>
           </div>
 
-          {/* embedded login — design left, details right */}
+          {/* live pipeline, ticking while you read */}
           <motion.div
-            id="auth"
-            initial={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="flex justify-center lg:justify-end"
+            transition={{ delay: 0.25, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="hidden justify-center lg:flex lg:justify-end"
           >
-            <Suspense>
-              <AuthCard embedded />
-            </Suspense>
+            <DmDemo />
           </motion.div>
         </div>
       </section>
@@ -148,38 +144,30 @@ export function Landing() {
             <em className="text-copper-300">That&apos;s the whole workflow.</em>
           </motion.h2>
 
-          <div className="mt-14 grid items-center gap-14 lg:grid-cols-2">
-            <motion.div {...fadeUp} className="flex justify-center lg:justify-start">
-              <DmDemo />
-            </motion.div>
-
-            <div className="space-y-10">
-              {[
-                {
-                  n: "01",
-                  title: "Save or DM",
-                  body: "A poller watches a dedicated bot account's saved collection and DMs. Forward any reel from your own account — no URL pasting, no browser extension, no app switching.",
-                },
-                {
-                  n: "02",
-                  title: "The pipeline reads it",
-                  body: "Each reel is transcribed (multilingual — English, Hindi, Telugu and more), classified into a category, and run through a schema-specific extractor. Silent reels get read visually, frame by frame.",
-                },
-                {
-                  n: "03",
-                  title: "Search it. Act on it.",
-                  body: "Hybrid semantic search means “that tokyo ramen place” finds the reel even if nobody ever said ramen. Events export to your calendar as .ics in one click.",
-                },
-              ].map((s) => (
-                <motion.div key={s.n} {...fadeUp} className="flex gap-6">
-                  <span className="font-mono text-sm text-copper-400">{s.n}</span>
-                  <div>
-                    <h3 className="font-display text-xl text-ink">{s.title}</h3>
-                    <p className="mt-2 max-w-md text-sm leading-relaxed text-ink-dim">{s.body}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+          <div className="mt-14 grid gap-10 md:grid-cols-3">
+            {[
+              {
+                n: "01",
+                title: "Save or DM",
+                body: "A poller watches a dedicated bot account's saved collection and DMs. Forward any reel from your own account — no URL pasting, no browser extension, no app switching.",
+              },
+              {
+                n: "02",
+                title: "The pipeline reads it",
+                body: "Each reel is transcribed (multilingual — English, Hindi, Telugu and more), classified into a category, and run through a schema-specific extractor. Silent reels get read visually, frame by frame.",
+              },
+              {
+                n: "03",
+                title: "Search it. Act on it.",
+                body: "Hybrid semantic search means “that tokyo ramen place” finds the reel even if nobody ever said ramen. Events export to your calendar as .ics in one click.",
+              },
+            ].map((s) => (
+              <motion.div key={s.n} {...fadeUp} className="border-t border-line pt-6">
+                <span className="font-mono text-sm text-copper-400">{s.n}</span>
+                <h3 className="mt-3 font-display text-xl text-ink">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-dim">{s.body}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -217,7 +205,7 @@ export function Landing() {
       </section>
 
       {/* ————— What comes out ————— */}
-      <section className="border-t border-line">
+      <section id="features" className="border-t border-line">
         <div className="mx-auto max-w-6xl px-6 py-24">
           <motion.p {...fadeUp} className="rule-label">
             what comes out
@@ -292,8 +280,9 @@ export function Landing() {
             Your saves live on <em className="text-copper-300">your hardware.</em>
           </motion.h2>
           <motion.p {...fadeUp} className="mt-4 max-w-xl text-sm leading-relaxed text-ink-dim">
-            MIT licensed, end to end. Run it on a laptop with Docker, or on AWS for the price of
-            a coffee or two a month. No subscription. No third-party cloud holding your data.
+            The whole stack is on GitHub, end to end. Run it on a laptop with Docker, or on AWS
+            for the price of a coffee or two a month. No subscription. No third-party cloud
+            holding your data.
           </motion.p>
 
           <div className="mt-12 grid gap-5 sm:grid-cols-2">
@@ -379,7 +368,7 @@ export function Landing() {
           </div>
         </div>
         <div className="border-t border-line py-5 text-center font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-faint">
-          MIT · no subscription · no telemetry · your data
+          no subscription · no telemetry · your data
         </div>
       </footer>
     </div>
