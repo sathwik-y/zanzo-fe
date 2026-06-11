@@ -124,17 +124,50 @@ export type PollerStatus = {
   queue_depth?: number | null;
 };
 
+export type User = {
+  id?: string | null;
+  email: string;
+  display_name?: string | null;
+  role: "USER" | "ADMIN";
+  ig_username?: string | null;
+  ig_verified: boolean;
+  created_at: string;
+};
+
+export type IgLinkStatus = {
+  ig_username?: string | null;
+  ig_verified: boolean;
+  pending_code?: string | null;
+  code_expires_at?: string | null;
+  bot_username?: string | null;
+};
+
+export type AdminUserRow = User & {
+  id: string;
+  last_login_at?: string | null;
+  item_count: number;
+};
+
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const resp = await fetch(`/api/backend/${path}`, {
     ...init,
     headers: { "Content-Type": "application/json", ...init?.headers },
   });
+  if (resp.status === 401 && typeof window !== "undefined") {
+    // Session expired beyond refresh — bounce to login.
+    window.location.href = "/login";
+  }
   if (!resp.ok) {
     const body = await resp.text();
     throw new Error(`${resp.status}: ${body.slice(0, 300)}`);
   }
   if (resp.status === 204) return undefined as T;
   return resp.json();
+}
+
+export async function logout() {
+  await fetch("/api/auth/logout", { method: "POST" });
+  window.location.href = "/login";
 }
 
 export const CATEGORIES = [

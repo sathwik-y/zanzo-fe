@@ -1,21 +1,17 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Activity, AlertCircle, CheckCircle2, Loader2, PlayCircle, Wallet } from "lucide-react";
-import { api, CATEGORY_META, PollerStatus, Stats } from "@/lib/api";
-import { EngagementSettings } from "@/components/engagement-settings";
+import { Wallet } from "lucide-react";
+import { api, CATEGORY_META, Stats } from "@/lib/api";
+import { AccountSettings } from "@/components/account-settings";
 
 export default function SettingsPage() {
   const [stats, setStats] = useState<Stats | null>(null);
-  const [poller, setPoller] = useState<PollerStatus | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [resuming, setResuming] = useState(false);
 
   const load = useCallback(async () => {
     try {
-      const [s, p] = await Promise.all([api<Stats>("stats"), api<PollerStatus>("poller/status")]);
-      setStats(s);
-      setPoller(p);
+      setStats(await api<Stats>("stats"));
       setError(null);
     } catch (e) {
       setError(e instanceof Error ? e.message : "failed to load");
@@ -28,21 +24,12 @@ export default function SettingsPage() {
     return () => clearInterval(t);
   }, [load]);
 
-  async function resume() {
-    setResuming(true);
-    try {
-      setPoller(await api<PollerStatus>("poller/resume", { method: "POST" }));
-    } finally {
-      setResuming(false);
-    }
-  }
-
-  const challenge = poller?.status === "challenge_required";
-
   return (
     <div className="max-w-3xl">
       <h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
-      <p className="mt-1 text-sm text-zinc-400">Poller health, processing stats and AI spend.</p>
+      <p className="mt-1 text-sm text-zinc-400">
+        Your account, Instagram link and library stats.
+      </p>
 
       {error && (
         <div className="mt-6 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">
@@ -50,69 +37,19 @@ export default function SettingsPage() {
         </div>
       )}
 
-      <section className="mt-8 rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
-        <div className="flex items-center justify-between">
-          <h2 className="flex items-center gap-2 font-medium">
-            <Activity className="size-4 text-violet-400" /> Instagram poller
-          </h2>
-          {poller &&
-            (challenge ? (
-              <span className="flex items-center gap-1.5 text-sm text-amber-300">
-                <AlertCircle className="size-4" /> needs attention
-              </span>
-            ) : poller.status === "running" ? (
-              <span className="flex items-center gap-1.5 text-sm text-emerald-300">
-                <CheckCircle2 className="size-4" /> running
-              </span>
-            ) : (
-              <span className="text-sm text-zinc-400">{poller.status}</span>
-            ))}
-        </div>
-
-        {challenge && (
-          <div className="mt-4 rounded-lg border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-200">
-            <p className="font-medium">Instagram is asking for manual verification.</p>
-            <p className="mt-1 text-amber-200/80">
-              Open Instagram on your phone or browser, log into the bot account, approve the
-              login (&quot;It was me&quot;), then click resume.
-            </p>
-            <button
-              onClick={resume}
-              disabled={resuming}
-              className="mt-3 flex items-center gap-2 rounded-lg bg-amber-500/20 px-3 py-1.5 text-amber-100 hover:bg-amber-500/30 disabled:opacity-50"
-            >
-              {resuming ? <Loader2 className="size-4 animate-spin" /> : <PlayCircle className="size-4" />}
-              Resume poller
-            </button>
-          </div>
-        )}
-
-        <dl className="mt-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
-          <Stat label="Last run" value={poller?.last_run_at ? new Date(poller.last_run_at).toLocaleTimeString() : "—"} />
-          <Stat label="New last run" value={poller?.last_new_items ?? "—"} />
-          <Stat label="Queue depth" value={poller?.queue_depth ?? "—"} />
-          <Stat label="Status" value={poller?.status ?? "—"} />
-        </dl>
-        {poller?.last_error && !challenge && (
-          <p className="mt-3 text-xs text-red-300/80">last error: {poller.last_error}</p>
-        )}
-      </section>
+      <AccountSettings />
 
       <section className="mt-6 rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
         <h2 className="flex items-center gap-2 font-medium">
-          <Wallet className="size-4 text-violet-400" /> AI spend
+          <Wallet className="size-4 text-violet-400" /> Your library
         </h2>
         <dl className="mt-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
-          <Stat label="This month" value={stats ? `$${stats.llm_cost_month_usd.toFixed(3)}` : "—"} />
-          <Stat label="All time" value={stats ? `$${stats.llm_cost_total_usd.toFixed(3)}` : "—"} />
           <Stat label="Items total" value={stats?.total_items ?? "—"} />
           <Stat label="Last 7 days" value={stats?.items_last_7_days ?? "—"} />
+          <Stat label="AI spend (month)" value={stats ? `$${stats.llm_cost_month_usd.toFixed(3)}` : "—"} />
+          <Stat label="AI spend (total)" value={stats ? `$${stats.llm_cost_total_usd.toFixed(3)}` : "—"} />
         </dl>
-      </section>
-
-      <section className="mt-6 rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
-        <h2 className="font-medium">Library breakdown</h2>
-        <div className="mt-4 space-y-2">
+        <div className="mt-5 space-y-2">
           {stats &&
             Object.entries(stats.by_category)
               .sort(([, a], [, b]) => b - a)
@@ -136,8 +73,6 @@ export default function SettingsPage() {
           )}
         </div>
       </section>
-
-      <EngagementSettings />
     </div>
   );
 }
