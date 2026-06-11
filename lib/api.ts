@@ -183,12 +183,12 @@ export const CATEGORY_META: Record<
   string,
   { label: string; slug: string; color: string; ring: string }
 > = {
-  EDUCATIONAL: { label: "Educational", slug: "educational", color: "bg-sky-500/15 text-sky-300", ring: "ring-sky-500/30" },
-  EVENT: { label: "Event", slug: "events", color: "bg-violet-500/15 text-violet-300", ring: "ring-violet-500/30" },
-  RECIPE: { label: "Recipe", slug: "recipes", color: "bg-amber-500/15 text-amber-300", ring: "ring-amber-500/30" },
-  TRAVEL: { label: "Travel", slug: "travel", color: "bg-emerald-500/15 text-emerald-300", ring: "ring-emerald-500/30" },
-  TECH_REFERENCE: { label: "Tech", slug: "tech", color: "bg-rose-500/15 text-rose-300", ring: "ring-rose-500/30" },
-  OTHER: { label: "Other", slug: "other", color: "bg-zinc-500/15 text-zinc-300", ring: "ring-zinc-500/30" },
+  EDUCATIONAL: { label: "Educational", slug: "educational", color: "bg-slateblue-500/15 text-slateblue-300", ring: "ring-slateblue-500/30" },
+  EVENT: { label: "Event", slug: "events", color: "bg-clay-500/15 text-clay-300", ring: "ring-clay-500/30" },
+  RECIPE: { label: "Recipe", slug: "recipes", color: "bg-ochre-500/15 text-ochre-300", ring: "ring-ochre-500/30" },
+  TRAVEL: { label: "Travel", slug: "travel", color: "bg-sage-500/15 text-sage-300", ring: "ring-sage-500/30" },
+  TECH_REFERENCE: { label: "Tech", slug: "tech", color: "bg-patina-500/15 text-patina-300", ring: "ring-patina-500/30" },
+  OTHER: { label: "Other", slug: "other", color: "bg-stone2-500/15 text-stone2-300", ring: "ring-stone2-500/30" },
 };
 
 export const SLUG_TO_CATEGORY: Record<string, string> = Object.fromEntries(

@@ -67,15 +67,15 @@ export default function AdminPage() {
 
   return (
     <div className="max-w-4xl">
-      <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-        <ShieldCheck className="size-6 text-violet-400" /> Admin
+      <h1 className="flex items-center gap-2 font-display text-3xl tracking-tight">
+        <ShieldCheck className="size-6 text-copper-400" /> Admin
       </h1>
       <p className="mt-1 text-sm text-zinc-400">
         Instance-wide stats, users, poller health and auto-engagement controls.
       </p>
 
       {error && (
-        <div className="mt-6 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">
+        <div className="mt-6 rounded-lg border border-clay-500/30 bg-clay-500/10 p-4 text-sm text-clay-300">
           Backend unreachable: {error}
         </div>
       )}
@@ -92,7 +92,7 @@ export default function AdminPage() {
 
       <section className="mt-6 rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
         <h2 className="flex items-center gap-2 font-medium">
-          <Users className="size-4 text-violet-400" /> Users
+          <Users className="size-4 text-copper-400" /> Users
         </h2>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full text-left text-sm">
@@ -119,7 +119,7 @@ export default function AdminPage() {
                     <span
                       className={`rounded-md px-1.5 py-0.5 text-xs ${
                         u.role === "ADMIN"
-                          ? "bg-violet-500/15 text-violet-300"
+                          ? "bg-copper-500/15 text-copper-300"
                           : "bg-zinc-800 text-zinc-400"
                       }`}
                     >
@@ -128,7 +128,7 @@ export default function AdminPage() {
                   </td>
                   <td className="py-2.5 pr-4">
                     {u.ig_username ? (
-                      <span className={u.ig_verified ? "text-emerald-300" : "text-amber-300"}>
+                      <span className={u.ig_verified ? "text-sage-300" : "text-ochre-300"}>
                         @{u.ig_username}
                         {!u.ig_verified && " (unverified)"}
                       </span>
@@ -160,15 +160,15 @@ export default function AdminPage() {
       <section className="mt-6 rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
         <div className="flex items-center justify-between">
           <h2 className="flex items-center gap-2 font-medium">
-            <Activity className="size-4 text-violet-400" /> Instagram poller
+            <Activity className="size-4 text-copper-400" /> Instagram poller
           </h2>
           {poller &&
             (challenge ? (
-              <span className="flex items-center gap-1.5 text-sm text-amber-300">
+              <span className="flex items-center gap-1.5 text-sm text-ochre-300">
                 <AlertCircle className="size-4" /> needs attention
               </span>
             ) : poller.status === "running" ? (
-              <span className="flex items-center gap-1.5 text-sm text-emerald-300">
+              <span className="flex items-center gap-1.5 text-sm text-sage-300">
                 <CheckCircle2 className="size-4" /> running
               </span>
             ) : (
@@ -177,16 +177,16 @@ export default function AdminPage() {
         </div>
 
         {challenge && (
-          <div className="mt-4 rounded-lg border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-200">
+          <div className="mt-4 rounded-lg border border-ochre-500/30 bg-ochre-500/10 p-4 text-sm text-ochre-200">
             <p className="font-medium">Instagram is asking for manual verification.</p>
-            <p className="mt-1 text-amber-200/80">
+            <p className="mt-1 text-ochre-200/80">
               Open Instagram, log into the bot account, approve the login (&quot;It was me&quot;),
               then click resume.
             </p>
             <button
               onClick={resume}
               disabled={resuming}
-              className="mt-3 flex items-center gap-2 rounded-lg bg-amber-500/20 px-3 py-1.5 text-amber-100 hover:bg-amber-500/30 disabled:opacity-50"
+              className="mt-3 flex items-center gap-2 rounded-lg bg-ochre-500/20 px-3 py-1.5 text-ochre-100 hover:bg-ochre-500/30 disabled:opacity-50"
             >
               {resuming ? <Loader2 className="size-4 animate-spin" /> : <PlayCircle className="size-4" />}
               Resume poller
@@ -201,7 +201,7 @@ export default function AdminPage() {
           <Stat label="Status" value={poller?.status ?? "—"} />
         </dl>
         {poller?.last_error && !challenge && (
-          <p className="mt-3 text-xs text-red-300/80">last error: {poller.last_error}</p>
+          <p className="mt-3 text-xs text-clay-300/80">last error: {poller.last_error}</p>
         )}
       </section>
 

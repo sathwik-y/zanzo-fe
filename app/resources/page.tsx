@@ -33,8 +33,8 @@ export default function ResourcesPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
-          <Gift className="size-6 text-violet-400" /> Resources
+        <h1 className="flex items-center gap-2 font-display text-3xl tracking-tight">
+          <Gift className="size-6 text-copper-400" /> Resources
         </h1>
         <p className="mt-1 text-sm text-zinc-400">
           Links Zanzo fetched for you by following creators and commenting the keyword
@@ -43,7 +43,7 @@ export default function ResourcesPage() {
       </div>
 
       {error && (
-        <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">{error}</div>
+        <div className="rounded-lg border border-clay-500/30 bg-clay-500/10 p-4 text-sm text-clay-300">{error}</div>
       )}
 
       {loading && (
@@ -65,7 +65,7 @@ export default function ResourcesPage() {
           <h2 className="mb-3 text-sm font-medium uppercase tracking-wide text-zinc-500">Harvested</h2>
           <div className="space-y-3">
             {withResources.map((r) => (
-              <div key={r.item_id} className="rounded-xl border border-violet-500/30 bg-violet-500/5 p-4">
+              <div key={r.item_id} className="rounded-xl border border-copper-500/30 bg-copper-500/5 p-4">
                 <div className="flex items-start justify-between gap-3">
                   <Link href={`/items/${r.item_id}`} className="font-medium text-zinc-100 hover:underline">
                     {r.headline}
@@ -75,7 +75,7 @@ export default function ResourcesPage() {
                 <ul className="mt-2 space-y-1.5">
                   {r.resources.map((res, i) => (
                     <li key={i}>
-                      <a href={res.url} target="_blank" className="flex items-start gap-2 text-sm text-violet-300 underline break-all">
+                      <a href={res.url} target="_blank" className="flex items-start gap-2 text-sm text-copper-300 underline break-all">
                         {res.source === "interaction_required" ? (
                           <MousePointerClick className="mt-0.5 size-3.5 shrink-0" />
                         ) : (

@@ -34,7 +34,7 @@ function Bullets({ label, values }: { label: string; values?: unknown }) {
       <ul className="mt-1.5 space-y-1.5">
         {values.map((v, i) => (
           <li key={i} className="flex gap-2 text-zinc-200">
-            <span className="mt-1.5 size-1 shrink-0 rounded-full bg-violet-400" />
+            <span className="mt-1.5 size-1 shrink-0 rounded-full bg-copper-400" />
             {String(v)}
           </li>
         ))}
@@ -58,10 +58,10 @@ export function ExtractionView({ category, payload }: { category?: string | null
         <Row label="City" value={[p.city, p.country].filter(Boolean).join(", ")} />
         <Row label="Price" value={p.price_info} />
         {Boolean(p.rsvp_url) && (
-          <a href={String(p.rsvp_url)} target="_blank" className="block text-sm text-violet-300 underline">RSVP link</a>
+          <a href={String(p.rsvp_url)} target="_blank" className="block text-sm text-copper-300 underline">RSVP link</a>
         )}
         {Boolean(p.ticket_url) && (
-          <a href={String(p.ticket_url)} target="_blank" className="block text-sm text-violet-300 underline">Tickets</a>
+          <a href={String(p.ticket_url)} target="_blank" className="block text-sm text-copper-300 underline">Tickets</a>
         )}
         <p className="text-sm text-zinc-300">{String(p.summary ?? "")}</p>
       </div>
@@ -137,7 +137,7 @@ export function ExtractionView({ category, payload }: { category?: string | null
             <div className="mt-1.5 flex flex-wrap gap-1.5">
               {tools.map((t, i) =>
                 t.url ? (
-                  <a key={i} href={t.url} target="_blank" className="rounded-full bg-zinc-800 px-2.5 py-0.5 text-xs text-violet-300 underline">
+                  <a key={i} href={t.url} target="_blank" className="rounded-full bg-zinc-800 px-2.5 py-0.5 text-xs text-copper-300 underline">
                     {t.name}
                   </a>
                 ) : (
@@ -150,7 +150,7 @@ export function ExtractionView({ category, payload }: { category?: string | null
         {snippets.map((s, i) => (
           <div key={i} className="text-sm">
             <span className="text-zinc-500">{s.purpose} ({s.language})</span>
-            <pre className="mt-1.5 overflow-x-auto rounded-lg bg-zinc-950 p-3 font-mono text-xs text-emerald-300">{s.snippet}</pre>
+            <pre className="mt-1.5 overflow-x-auto rounded-lg bg-zinc-950 p-3 font-mono text-xs text-sage-300">{s.snippet}</pre>
           </div>
         ))}
         <Bullets label="Key insights" values={p.key_insights} />

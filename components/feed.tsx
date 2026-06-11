@@ -70,13 +70,13 @@ export function Feed({
           value={search}
           onChange={(e) => onSearch(e.target.value)}
           placeholder='Search your saves... try "that tokyo ramen place"'
-          className="w-full max-w-md rounded-lg border border-zinc-800 bg-zinc-900/70 px-3.5 py-2 text-sm text-zinc-100 placeholder-zinc-500 outline-none focus:border-violet-500/60"
+          className="w-full max-w-md rounded-lg border border-zinc-800 bg-zinc-900/70 px-3.5 py-2 text-sm text-zinc-100 placeholder-zinc-500 outline-none focus:border-copper-500/60"
         />
         {!fixedCategory && (
           <select
             value={category}
             onChange={(e) => onCategory(e.target.value)}
-            className="rounded-lg border border-zinc-800 bg-zinc-900/70 px-3 py-2 text-sm text-zinc-300 outline-none focus:border-violet-500/60"
+            className="rounded-lg border border-zinc-800 bg-zinc-900/70 px-3 py-2 text-sm text-zinc-300 outline-none focus:border-copper-500/60"
           >
             <option value="">All categories</option>
             {CATEGORIES.map((c) => (
@@ -94,7 +94,7 @@ export function Feed({
       </div>
 
       {error && (
-        <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">
+        <div className="rounded-lg border border-clay-500/30 bg-clay-500/10 p-4 text-sm text-clay-300">
           {error}
         </div>
       )}

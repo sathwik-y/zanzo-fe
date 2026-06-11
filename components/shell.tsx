@@ -1,20 +1,10 @@
-"use client";
+import { cookies } from "next/headers";
+import { ShellClient } from "@/components/shell-client";
+import { REFRESH_COOKIE } from "@/lib/session";
 
-import { usePathname } from "next/navigation";
-import { Sidebar } from "@/components/sidebar";
-
-const BARE_ROUTES = new Set(["/login", "/signup"]);
-
-// App chrome: sidebar + content column, except on auth pages.
-export function Shell({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  if (BARE_ROUTES.has(pathname)) return <>{children}</>;
-  return (
-    <div className="flex min-h-screen">
-      <Sidebar />
-      <main className="flex-1 min-w-0 px-4 py-6 md:px-8 lg:px-12 max-w-6xl mx-auto">
-        {children}
-      </main>
-    </div>
-  );
+// App chrome: sidebar + content column for signed-in app pages; bare for the
+// landing page and auth screens.
+export async function Shell({ children }: { children: React.ReactNode }) {
+  const hasSession = (await cookies()).has(REFRESH_COOKIE);
+  return <ShellClient hasSession={hasSession}>{children}</ShellClient>;
 }

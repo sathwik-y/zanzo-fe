@@ -17,8 +17,8 @@ export function StatusChip({ status }: { status: string }) {
     <span
       className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ${
         failed
-          ? "bg-red-500/15 text-red-300 ring-red-500/30"
-          : "bg-yellow-500/10 text-yellow-300 ring-yellow-500/25 animate-pulse"
+          ? "bg-clay-500/15 text-clay-300 ring-clay-500/30"
+          : "bg-ochre-500/10 text-ochre-300 ring-ochre-500/25 animate-pulse"
       }`}
     >
       {failed ? status.replace("FAILED_", "failed: ").toLowerCase() : status.toLowerCase()}

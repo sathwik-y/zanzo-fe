@@ -17,7 +17,7 @@ export default async function CategoryPage({
       fixedCategory={category}
       header={
         <div className="mb-6">
-          <h1 className="text-2xl font-semibold tracking-tight">{meta.label}</h1>
+          <h1 className="font-display text-3xl tracking-tight">{meta.label}</h1>
           <p className="mt-1 text-sm text-zinc-400">
             Saved items classified as {meta.label.toLowerCase()}.
           </p>

@@ -54,14 +54,14 @@ export function EngagementSettings() {
     <section className="mt-6 rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
       <div className="flex items-center justify-between">
         <h2 className="flex items-center gap-2 font-medium">
-          <Bot className="size-4 text-violet-400" /> Auto-engagement
+          <Bot className="size-4 text-copper-400" /> Auto-engagement
         </h2>
         <label className="flex items-center gap-2 text-sm text-zinc-300">
           <input
             type="checkbox"
             checked={config.enabled}
             onChange={(e) => setConfig({ ...config, enabled: e.target.checked })}
-            className="size-4 accent-violet-500"
+            className="size-4 accent-copper-500"
           />
           Enabled
         </label>
@@ -80,7 +80,7 @@ export function EngagementSettings() {
               type="number"
               value={config[f.key] as number}
               onChange={(e) => setConfig({ ...config, [f.key]: Number(e.target.value) })}
-              className="mt-1 w-full rounded-lg border border-zinc-700 bg-zinc-900 px-2.5 py-1.5 text-zinc-200 outline-none focus:border-violet-500/60"
+              className="mt-1 w-full rounded-lg border border-zinc-700 bg-zinc-900 px-2.5 py-1.5 text-zinc-200 outline-none focus:border-copper-500/60"
             />
           </label>
         ))}
@@ -89,7 +89,7 @@ export function EngagementSettings() {
       <button
         onClick={save}
         disabled={saving}
-        className="mt-4 flex items-center gap-2 rounded-lg bg-violet-500/20 px-3 py-1.5 text-sm text-violet-100 hover:bg-violet-500/30 disabled:opacity-50"
+        className="mt-4 flex items-center gap-2 rounded-lg bg-copper-500/20 px-3 py-1.5 text-sm text-copper-100 hover:bg-copper-500/30 disabled:opacity-50"
       >
         {saving ? <Loader2 className="size-4 animate-spin" /> : <Save className="size-4" />}
         {saved ? "Saved" : "Save caps"}
@@ -105,7 +105,7 @@ export function EngagementSettings() {
             {rows.slice(0, 8).map((r) => (
               <div key={r.id} className="flex items-center justify-between rounded-lg bg-zinc-800/50 px-3 py-1.5 text-sm">
                 <span className="text-zinc-300">
-                  @{r.creator_username} · <span className="font-mono text-violet-300">{r.keyword}</span>
+                  @{r.creator_username} · <span className="font-mono text-copper-300">{r.keyword}</span>
                 </span>
                 <span className="text-xs text-zinc-400">
                   {ENGAGEMENT_STATUS_LABEL[r.status] ?? r.status}

@@ -1,13 +1,8 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
-import { AuthForm } from "@/components/auth-form";
+import { AuthSplit } from "@/components/auth-split";
 
-export const metadata: Metadata = { title: "Sign up — Zanzo" };
+export const metadata: Metadata = { title: "Create account — Zanzo" };
 
 export default function SignupPage() {
-  return (
-    <Suspense>
-      <AuthForm mode="signup" />
-    </Suspense>
-  );
+  return <AuthSplit initialMode="signup" />;
 }

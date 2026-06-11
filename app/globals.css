@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
+/* ————————————————————————————————————————————————————————————
+   Zanzo — "The Archive"
+   Warm near-black paper, bone ink, copper accent. Hairline rules,
+   mono microlabels, editorial serif for display type.
+   ———————————————————————————————————————————————————————————— */
+
 :root {
-  --background: #0b0b0f;
-  --foreground: #e7e7ea;
+  --background: #0e0c09;
+  --foreground: #eae3d6;
 }
 
 @theme inline {
@@ -10,6 +16,74 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-fraunces);
+}
+
+@theme {
+  /* Surfaces (warm) */
+  --color-paper: #0e0c09;
+  --color-surface: #15120e;
+  --color-raised: #1c1813;
+  --color-overlay: #241f18;
+
+  /* Lines */
+  --color-line: #29231b;
+  --color-line-strong: #3b3326;
+
+  /* Ink */
+  --color-ink: #eae3d6;
+  --color-ink-dim: #a99f8c;
+  --color-ink-faint: #6e6557;
+
+  /* Copper accent scale (replaces the old violet) */
+  --color-copper-100: #f3ddc4;
+  --color-copper-200: #ecc59c;
+  --color-copper-300: #e0a76e;
+  --color-copper-400: #d18c4a;
+  --color-copper-500: #c0763a;
+  --color-copper-600: #9e5d2d;
+  --color-copper-700: #7c4824;
+
+  /* States (muted, archival) */
+  --color-ochre-100: #f3e6c4;
+  --color-sage-200: #c6d8be;
+  --color-clay-200: #ecc3b2;
+  --color-ochre-200: #ead4a4;
+  --color-slateblue-200: #c5d4e6;
+  --color-patina-200: #c2dad4;
+  --color-stone2-200: #cdc4b3;
+  --color-sage-300: #aec6a4;
+  --color-sage-400: #94b08a;
+  --color-sage-500: #7a9a70;
+  --color-clay-300: #dba18b;
+  --color-clay-400: #c97c5e;
+  --color-clay-500: #b06046;
+  --color-ochre-300: #dcbe7e;
+  --color-ochre-400: #cba45c;
+  --color-ochre-500: #b58c44;
+  --color-slateblue-300: #aabfd8;
+  --color-slateblue-400: #8ca6c5;
+  --color-slateblue-500: #7390b1;
+  --color-patina-300: #a3c4bd;
+  --color-patina-400: #7fa9a1;
+  --color-patina-500: #689189;
+  --color-stone2-300: #b5ab98;
+  --color-stone2-400: #9c927f;
+  --color-stone2-500: #837964;
+
+  /* Remap zinc (used everywhere in the app) onto warm stone so every
+     existing surface inherits the archive palette. */
+  --color-zinc-50: #f6f2ea;
+  --color-zinc-100: #eae3d6;
+  --color-zinc-200: #d8cfbe;
+  --color-zinc-300: #bdb29d;
+  --color-zinc-400: #a99f8c;
+  --color-zinc-500: #877d6b;
+  --color-zinc-600: #6e6557;
+  --color-zinc-700: #4a4337;
+  --color-zinc-800: #2c261e;
+  --color-zinc-900: #1a1611;
+  --color-zinc-950: #100e0a;
 }
 
 body {
@@ -18,11 +92,41 @@ body {
 }
 
 ::selection {
-  background: rgba(139, 92, 246, 0.35);
+  background: rgba(192, 118, 58, 0.32);
 }
 
 /* thin scrollbars that fit the dark theme */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #3f3f46 transparent;
+  scrollbar-color: #3b3326 transparent;
+}
+
+/* Film-grain overlay used on the landing + auth panels */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+}
+
+/* Hairline rule with a centered label, used as section dividers */
+.rule-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--color-ink-faint);
+  font-family: var(--font-geist-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.rule-label::before,
+.rule-label::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: var(--color-line);
 }

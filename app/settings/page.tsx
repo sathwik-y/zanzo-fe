@@ -26,13 +26,13 @@ export default function SettingsPage() {
 
   return (
     <div className="max-w-3xl">
-      <h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
+      <h1 className="font-display text-3xl tracking-tight">Settings</h1>
       <p className="mt-1 text-sm text-zinc-400">
         Your account, Instagram link and library stats.
       </p>
 
       {error && (
-        <div className="mt-6 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">
+        <div className="mt-6 rounded-lg border border-clay-500/30 bg-clay-500/10 p-4 text-sm text-clay-300">
           Backend unreachable: {error}
         </div>
       )}
@@ -41,7 +41,7 @@ export default function SettingsPage() {
 
       <section className="mt-6 rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
         <h2 className="flex items-center gap-2 font-medium">
-          <Wallet className="size-4 text-violet-400" /> Your library
+          <Wallet className="size-4 text-copper-400" /> Your library
         </h2>
         <dl className="mt-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
           <Stat label="Items total" value={stats?.total_items ?? "—"} />
@@ -60,14 +60,14 @@ export default function SettingsPage() {
                   <div key={cat} className="flex items-center gap-3 text-sm">
                     <span className="w-28 text-zinc-400">{meta.label}</span>
                     <div className="h-2 flex-1 overflow-hidden rounded-full bg-zinc-800">
-                      <div className="h-full rounded-full bg-violet-500/70" style={{ width: `${pct}%` }} />
+                      <div className="h-full rounded-full bg-copper-500/70" style={{ width: `${pct}%` }} />
                     </div>
                     <span className="w-8 text-right text-zinc-300">{count}</span>
                   </div>
                 );
               })}
           {stats && stats.failed_count > 0 && (
-            <p className="pt-2 text-xs text-red-300/80">
+            <p className="pt-2 text-xs text-clay-300/80">
               {stats.failed_count} item{stats.failed_count === 1 ? "" : "s"} failed processing — see the Failed tab.
             </p>
           )}

@@ -56,7 +56,7 @@ export default function ItemPage({ params }: { params: Promise<{ id: string }> }
   }
 
   if (error) {
-    return <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">{error}</div>;
+    return <div className="rounded-lg border border-clay-500/30 bg-clay-500/10 p-4 text-sm text-clay-300">{error}</div>;
   }
   if (!item) {
     return (
@@ -97,9 +97,9 @@ export default function ItemPage({ params }: { params: Promise<{ id: string }> }
         </div>
 
         {failed && item.error_log && (
-          <div className="mt-4 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">
+          <div className="mt-4 rounded-lg border border-clay-500/30 bg-clay-500/10 p-4 text-sm text-clay-300">
             <p className="font-medium">Processing failed at {item.error_log.stage}</p>
-            <p className="mt-1 text-red-300/80">{item.error_log.error}</p>
+            <p className="mt-1 text-clay-300/80">{item.error_log.error}</p>
           </div>
         )}
 
@@ -127,7 +127,7 @@ export default function ItemPage({ params }: { params: Promise<{ id: string }> }
                   }}
                   className="block w-full rounded px-2 py-1 text-left text-sm text-zinc-300 hover:bg-zinc-800"
                 >
-                  <span className="mr-2 font-mono text-xs text-violet-400">
+                  <span className="mr-2 font-mono text-xs text-copper-400">
                     {Math.floor(seg.start / 60)}:{String(Math.floor(seg.start % 60)).padStart(2, "0")}
                   </span>
                   {seg.text}
@@ -142,31 +142,31 @@ export default function ItemPage({ params }: { params: Promise<{ id: string }> }
         {item.engagement && (
           <section className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
             <h2 className="mb-2 flex items-center gap-2 text-sm font-medium uppercase tracking-wide text-zinc-500">
-              <Gift className="size-4 text-violet-400" /> Auto-engagement
+              <Gift className="size-4 text-copper-400" /> Auto-engagement
             </h2>
             <p className="text-sm text-zinc-300">
               {item.engagement.needs_follow ? "Followed + commented" : "Commented"}{" "}
-              <span className="font-mono text-violet-300">{item.engagement.keyword}</span> to @
+              <span className="font-mono text-copper-300">{item.engagement.keyword}</span> to @
               {item.engagement.creator_username}
             </p>
             <p className="mt-1 text-xs text-zinc-500">
               status: {ENGAGEMENT_STATUS_LABEL[item.engagement.status] ?? item.engagement.status}
             </p>
             {item.engagement.last_error && (
-              <p className="mt-1 text-xs text-red-300/80">{item.engagement.last_error}</p>
+              <p className="mt-1 text-xs text-clay-300/80">{item.engagement.last_error}</p>
             )}
           </section>
         )}
 
         {item.resources && item.resources.length > 0 && (
-          <section className="rounded-xl border border-violet-500/30 bg-violet-500/5 p-4">
-            <h2 className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-wide text-violet-300">
+          <section className="rounded-xl border border-copper-500/30 bg-copper-500/5 p-4">
+            <h2 className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-wide text-copper-300">
               <Gift className="size-4" /> Resources
             </h2>
             <ul className="space-y-2">
               {item.resources.map((r, i) => (
                 <li key={i}>
-                  <a href={r.url} target="_blank" className="flex items-start gap-2 text-sm text-violet-300 underline break-all">
+                  <a href={r.url} target="_blank" className="flex items-start gap-2 text-sm text-copper-300 underline break-all">
                     <LinkIcon className="mt-0.5 size-3.5 shrink-0" />
                     {r.url}
                   </a>
@@ -290,7 +290,7 @@ export default function ItemPage({ params }: { params: Promise<{ id: string }> }
                 await load();
               })
             }
-            className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-200 outline-none focus:border-violet-500/60"
+            className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-200 outline-none focus:border-copper-500/60"
           >
             {CATEGORIES.map((c) => (
               <option key={c} value={c}>
@@ -334,7 +334,7 @@ function ActionButton({
       disabled={busy}
       className={`flex w-full items-center gap-2.5 rounded-lg border px-3 py-2 text-sm transition-colors disabled:opacity-50 ${
         danger
-          ? "border-red-500/30 text-red-300 hover:bg-red-500/10"
+          ? "border-clay-500/30 text-clay-300 hover:bg-clay-500/10"
           : "border-zinc-700/80 text-zinc-300 hover:bg-zinc-800"
       }`}
     >
