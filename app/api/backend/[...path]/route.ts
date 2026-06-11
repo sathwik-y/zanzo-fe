@@ -6,10 +6,11 @@ import {
   type TokenPair,
 } from "@/lib/session";
 
+import { BACKEND_URL as BACKEND } from "@/lib/backend";
+
 // Server-side proxy: forwards the user's JWT (from httpOnly cookies) to the
 // backend. The browser never sees tokens; on an expired access token the proxy
 // refreshes transparently and rotates the cookies on the response.
-const BACKEND = process.env.BACKEND_URL ?? "http://localhost:8000";
 
 async function callBackend(req: NextRequest, target: string, token: string | undefined, body: string | undefined) {
   const headers: Record<string, string> = {};

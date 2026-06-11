@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { BACKEND_URL as BACKEND } from "@/lib/backend";
 import { clearSessionCookies, setSessionCookies } from "@/lib/session";
-
-const BACKEND = process.env.BACKEND_URL ?? "http://localhost:8000";
 
 // POST /api/auth/login | signup | logout — exchanges credentials with the
 // backend and stores the JWT pair in httpOnly cookies.
