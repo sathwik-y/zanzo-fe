@@ -20,12 +20,21 @@ export async function POST(
     return NextResponse.json({ detail: "unknown action" }, { status: 404 });
   }
 
-  const upstream = await fetch(`${BACKEND}/auth/${action}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: await req.text(),
-    cache: "no-store",
-  });
+  let upstream: Response;
+  try {
+    upstream = await fetch(`${BACKEND}/auth/${action}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: await req.text(),
+      cache: "no-store",
+      signal: AbortSignal.timeout(20000),
+    });
+  } catch {
+    return NextResponse.json(
+      { detail: "Backend is inactive — please contact the admin." },
+      { status: 502 }
+    );
+  }
   const body = await upstream.json().catch(() => ({}));
   if (!upstream.ok) {
     return NextResponse.json(body, { status: upstream.status });

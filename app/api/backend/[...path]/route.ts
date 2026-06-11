@@ -22,6 +22,7 @@ async function callBackend(req: NextRequest, target: string, token: string | und
     headers,
     body: req.method === "GET" || req.method === "HEAD" ? undefined : body,
     cache: "no-store",
+    signal: AbortSignal.timeout(20000),
   });
 }
 
@@ -34,7 +35,13 @@ async function proxy(
   const target = `${BACKEND}/${path.join("/")}${search}`;
   const body = req.method === "GET" || req.method === "HEAD" ? undefined : await req.text();
 
-  let resp = await callBackend(req, target, req.cookies.get(ACCESS_COOKIE)?.value, body);
+  let resp: Response;
+  try {
+    resp = await callBackend(req, target, req.cookies.get(ACCESS_COOKIE)?.value, body);
+  } catch {
+    // Backend unreachable (e.g. the instance is stopped outside demo hours).
+    return NextResponse.json({ detail: "backend unreachable" }, { status: 502 });
+  }
 
   // Access token expired? Refresh once and retry.
   let rotated: TokenPair | null = null;

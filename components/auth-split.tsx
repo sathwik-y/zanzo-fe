@@ -1,12 +1,15 @@
 import Link from "next/link";
 import { Suspense } from "react";
+import { BackendBanner } from "@/components/backend-status";
 import { Logo, LogoMark } from "@/components/logo";
 import { AuthCard } from "@/components/auth-card";
 
 /* Standalone auth layout: brand panel left, form right. */
 export function AuthSplit({ initialMode }: { initialMode: "login" | "signup" }) {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen flex-col">
+      <BackendBanner />
+      <div className="flex flex-1">
       {/* brand panel */}
       <div className="grain relative hidden flex-1 flex-col justify-between overflow-hidden border-r border-line bg-surface p-10 lg:flex">
         <div
@@ -47,6 +50,7 @@ export function AuthSplit({ initialMode }: { initialMode: "login" | "signup" }) 
             <AuthCard initialMode={initialMode} />
           </Suspense>
         </div>
+      </div>
       </div>
     </div>
   );
