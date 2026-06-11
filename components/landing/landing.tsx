@@ -327,11 +327,11 @@ export function Landing() {
           >
             <Server className="mt-0.5 size-4 shrink-0 text-ochre-400" />
             <p className="text-sm leading-relaxed text-ink-dim">
-              <span className="font-semibold text-ochre-300">Run it honest.</span> Automating an
-              Instagram account is against Instagram&apos;s terms and can get that account banned.
-              Zanzo is built for a dedicated bot account — never your main — with conservative
-              pacing, daily caps, and a kill switch in the dashboard. You bring your own account,
-              your own keys, and your own risk.
+              <span className="font-semibold text-ochre-300">Know the risk.</span>{" "}
+              Automating an Instagram account is against Instagram&apos;s terms and can get that
+              account banned. That&apos;s why Zanzo runs on a dedicated bot account — never your
+              main — with conservative pacing, daily caps, and a kill switch in the dashboard.
+              Your account, your keys, your call.
             </p>
           </motion.div>
         </div>
