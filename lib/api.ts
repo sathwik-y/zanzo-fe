@@ -92,6 +92,13 @@ export type ResourceRow = {
   last_error?: string | null;
 };
 
+export type ResourceList = {
+  rows: ResourceRow[];
+  total: number;
+  limit: number;
+  offset: number;
+};
+
 export const ENGAGEMENT_STATUS_LABEL: Record<string, string> = {
   PENDING: "queued",
   FOLLOWING: "followed",
