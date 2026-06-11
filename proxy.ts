@@ -14,7 +14,7 @@ export function proxy(request: NextRequest) {
 
   if (AUTH_PATHS.has(pathname)) {
     if (hasSession) {
-      return NextResponse.redirect(new URL("/", request.url));
+      return NextResponse.redirect(new URL("/home", request.url));
     }
     return NextResponse.next();
   }

@@ -21,7 +21,7 @@ import { useUser } from "@/lib/use-user";
 import { LogoMark } from "@/components/logo";
 
 const NAV = [
-  { href: "/", label: "Feed", icon: Home },
+  { href: "/home", label: "Feed", icon: Home },
   { href: "/resources", label: "Resources", icon: Gift },
   { href: "/category/events", label: "Events", icon: Calendar },
   { href: "/category/recipes", label: "Recipes", icon: ChefHat },

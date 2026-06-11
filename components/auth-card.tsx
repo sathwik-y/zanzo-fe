@@ -49,7 +49,7 @@ export function AuthCard({
         );
         return;
       }
-      router.replace(search.get("next") || "/");
+      router.replace(search.get("next") || "/home");
       router.refresh();
     } catch {
       setError("could not reach the server");

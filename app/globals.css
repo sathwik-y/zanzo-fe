@@ -91,6 +91,107 @@ body {
   color: var(--foreground);
 }
 
+/* ————————————————————————————————————————————————————————————
+   "Blush" zone — the app interior. The landing and auth pages keep the warm
+   archive palette; everything inside the shell flips to cool graphite with a
+   soft peach light. Tailwind v4 utilities reference these variables, so
+   re-declaring them here re-skins every component without touching markup.
+   ———————————————————————————————————————————————————————————— */
+.zone-app {
+  /* surfaces: cool slate-graphite */
+  --color-paper: #0c0c0f;
+  --color-surface: #121216;
+  --color-raised: #19181d;
+  --color-overlay: #201f25;
+  --color-line: #212026;
+  --color-line-strong: #343239;
+
+  /* ink: cool with a hint of mauve */
+  --color-ink: #edeae8;
+  --color-ink-dim: #a49da0;
+  --color-ink-faint: #635e62;
+
+  /* the copper scale becomes peach — same hue family as the landing,
+     one stop lighter and softer */
+  --color-copper-100: #fbe3d8;
+  --color-copper-200: #f7cdba;
+  --color-copper-300: #f2b8a0;
+  --color-copper-400: #e8a085;
+  --color-copper-500: #d98a6d;
+  --color-copper-600: #b06d52;
+  --color-copper-700: #8a543f;
+
+  /* neutral ramp goes cool */
+  --color-zinc-50: #f6f5f6;
+  --color-zinc-100: #edeae8;
+  --color-zinc-200: #d8d5d6;
+  --color-zinc-300: #bcb8ba;
+  --color-zinc-400: #a49da0;
+  --color-zinc-500: #837d80;
+  --color-zinc-600: #635e62;
+  --color-zinc-700: #46434a;
+  --color-zinc-800: #26242b;
+  --color-zinc-900: #171619;
+  --color-zinc-950: #0e0d11;
+
+  /* category + state palette, blush-tuned */
+  --color-ochre-100: #f6ecd2;
+  --color-ochre-200: #ecdaa9;
+  --color-ochre-300: #e0c684;
+  --color-ochre-400: #d6b873;
+  --color-ochre-500: #bb9c54;
+  --color-sage-200: #c8e0cc;
+  --color-sage-300: #b1d2b6;
+  --color-sage-400: #9cc4a2;
+  --color-sage-500: #7fa886;
+  --color-clay-200: #f0c3b2;
+  --color-clay-300: #e8a18b;
+  --color-clay-400: #d97f62;
+  --color-clay-500: #bb6248;
+  --color-patina-200: #c2dde4;
+  --color-patina-300: #a8cbd4;
+  --color-patina-400: #8fb9c4;
+  --color-patina-500: #74a0ab;
+  --color-slateblue-200: #d2d8ea;
+  --color-slateblue-300: #bcc4dd;
+  --color-slateblue-400: #a4aed0;
+  --color-slateblue-500: #8a95bb;
+  --color-stone2-200: #cbc6c9;
+  --color-stone2-300: #b3adb0;
+  --color-stone2-400: #9b9598;
+  --color-stone2-500: #807a7d;
+
+  background: var(--color-paper);
+  color: var(--color-ink);
+  position: relative;
+  isolation: isolate;
+  scrollbar-color: #343239 transparent;
+}
+
+/* soft peach light pooling at the top of the workspace — the "smooth" part */
+.zone-app::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(28px);
+  background:
+    radial-gradient(42% 26% at 85% 0%, rgba(242, 184, 160, 0.05), transparent 62%),
+    radial-gradient(34% 24% at 8% 100%, rgba(242, 184, 160, 0.025), transparent 62%);
+}
+
+.zone-app ::selection {
+  background: rgba(242, 184, 160, 0.28);
+}
+
+/* eased motion on every interactive surface inside the app */
+.zone-app :is(a, button, section, [class*="rounded-x"]) {
+  transition-property: color, background-color, border-color, box-shadow, transform;
+  transition-duration: 0.22s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 ::selection {
   background: rgba(192, 118, 58, 0.32);
 }

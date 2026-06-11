@@ -8,7 +8,7 @@ import { Logo } from "@/components/logo";
 const LINKS = [
   { href: "#how", label: "How it works" },
   { href: "#pipeline", label: "Pipeline" },
-  { href: "#features", label: "What comes out" },
+  { href: "#features", label: "Features" },
   { href: "#open-source", label: "Open source" },
 ];
 
@@ -16,11 +16,16 @@ const LINKS = [
    a narrower bordered capsule once you move. */
 export function LandingNavbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+    // Raw fetch (not api()): a 401 here is normal for visitors, no redirect.
+    fetch("/api/backend/auth/me")
+      .then((r) => setSignedIn(r.ok))
+      .catch(() => {});
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -60,10 +65,10 @@ export function LandingNavbar() {
             <GitHubIcon className="size-4" />
           </a>
           <Link
-            href="/login"
+            href={signedIn ? "/home" : "/login"}
             className="rounded-full bg-ink px-4 py-1.5 text-sm font-semibold text-paper transition-colors hover:bg-copper-200"
           >
-            Get started
+            {signedIn ? "Open app" : "Get started"}
           </Link>
         </div>
       </nav>
